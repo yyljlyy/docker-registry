@@ -7,21 +7,13 @@
 
 # Latest Ubuntu LTS
 FROM ubuntu:14.04
-
+COPY sources.list /etc/apt/sources.list
 # Update
 RUN apt-get update \
 # Install pip
-    && apt-get install -y \
-        swig \
-        python-pip \
+    && apt-get install -y swig python-pip \
 # Install deps for backports.lzma (python2 requires it)
-        python-dev \
-        python-mysqldb \
-        python-rsa \
-        libssl-dev \
-        liblzma-dev \
-        libevent1-dev \
-    && rm -rf /var/lib/apt/lists/*
+        python-dev python-mysqldb python-rsa libssl-dev liblzma-dev libevent1-dev && rm -rf /var/lib/apt/lists/*
 
 COPY . /docker-registry
 COPY ./config/boto.cfg /etc/boto.cfg
